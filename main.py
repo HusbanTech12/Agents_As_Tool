@@ -1,5 +1,5 @@
 from agents import Runner,Agent 
-from config import AgentConfig
+from config import config
 
 
 spanish_agent = Agent(
@@ -36,13 +36,19 @@ translation_agent = Agent(
            tool_name='translate_to_korean',
            tool_description="Translate the user's message to Korean" 
        ),
+       
        french_agent.as_tool(
            tool_name='translate_to_french',
            tool_description="Translate the user's message to French" 
        ),     
     ]
-    
-    
-    
-    
+       
 )
+
+result = Runner.run_sync(
+    translation_agent,
+    "Translate 'I am jenius' into korean",
+    run_config = config 
+)
+
+print(result.final_output)
